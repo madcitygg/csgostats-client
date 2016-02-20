@@ -14,11 +14,16 @@ import (
 	"github.com/mitchellh/colorstring"
 )
 
+const (
+	version = "0.0.1"
+)
+
 type Options struct {
-	Verbose bool   `short:"v" long:"verbose" description:"Verbose output"`
 	Bind    string `short:"b" long:"bind" value-name:"IP" description:"Address to bind to" default:"0.0.0.0"`
 	Port    int    `short:"p" long:"port" value-name:"PORT" description:"Port to listen on" default:"auto"`
 	Target  string `short:"t" long:"target" value-name:"ADDRESS" description:"API endpoints to forward logs to" default:"http://logs.madcity.gg/"`
+	Verbose bool   `short:"v" long:"verbose" description:"Verbose output"`
+	Version bool   `long:"version" description:"Show version and exit"`
 	// LogDirectory string `short:"l" long:"logdir" value-name:"DIRECTORY" description:"Directory to write logs to"`
 }
 
@@ -28,6 +33,12 @@ func main() {
 	var parser = flags.NewParser(&options, flags.Default)
 	if _, err := parser.Parse(); err != nil {
 		os.Exit(1)
+	}
+
+	// Show version and exit
+	if options.Version {
+		colorstring.Println(version)
+		os.Exit(0)
 	}
 
 	// Test target
@@ -57,7 +68,7 @@ func main() {
 
 	// Tell user where to send stuff
 	socketAddr := socket.LocalAddr().(*net.UDPAddr)
-	colorstring.Printf("[green]Listening on %s:%d\n", options.Bind, socketAddr.Port)
+	log.Printf("Listening on %s:%d\n", options.Bind, socketAddr.Port)
 
 	// Start listener
 	listener := NewListener(socket, &options)
