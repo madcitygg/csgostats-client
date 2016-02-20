@@ -32,6 +32,12 @@ logaddress_add [IP]:[PORT]  // IP and port from step 2 and 3
 ```
 Replace `[IP]` and `[PORT]` with the IP and port from step 2 and 3.
 
+Ideally, these commands would be executed at match start (either right before or right after live on 3), and then at match end (after all overtime, etc.), you could execute:
+```
+logaddress_del [IP]:[PORT]
+```
+This would leave us with less data to sift through when we build the stats.
+
 **5. Test**
 
 Jump on the server and shoot some bots. If it's working, and you have verbose output on, you should start seeing a lot of log lines scroll by.
