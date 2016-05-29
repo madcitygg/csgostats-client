@@ -21,7 +21,7 @@ const (
 type Options struct {
 	Bind    string `short:"b" long:"bind" value-name:"IP" description:"Address to bind to" default:"0.0.0.0"`
 	Port    int    `short:"p" long:"port" value-name:"PORT" description:"Port to listen on" default:"auto"`
-	Target  string `short:"t" long:"target" value-name:"ADDRESS" description:"API endpoints to forward logs to" default:"http://logs.madcity.gg/"`
+	Target  string `short:"t" long:"target" value-name:"ADDRESS" description:"API endpoints to forward logs to" default:"http://logs.madcity.gg/api/logs/"`
 	Verbose bool   `short:"v" long:"verbose" description:"Verbose output"`
 	Version bool   `long:"version" description:"Show version and exit"`
 	// LogDirectory string `short:"l" long:"logdir" value-name:"DIRECTORY" description:"Directory to write logs to"`
@@ -42,13 +42,13 @@ func main() {
 	}
 
 	// Test target
-	client := &http.Client{}
-	resp, err := client.Post(strings.TrimLeft(options.Target, "/")+"/ping", "application/json", nil)
-	if err != nil {
-		colorstring.Printf("[red]ERROR: Could not ping %s, got: %s\n", options.Target, err.Error())
-		os.Exit(1)
-	}
-	resp.Body.Close()
+	// client := &http.Client{}
+	// resp, err := client.Post(strings.TrimLeft(options.Target, "/")+"/ping", "application/json", nil)
+	// if err != nil {
+	// 	colorstring.Printf("[red]ERROR: Could not ping %s, got: %s\n", options.Target, err.Error())
+	// 	os.Exit(1)
+	// }
+	// resp.Body.Close()
 
 	// Open socket
 	address := fmt.Sprintf("%s:%d", options.Bind, options.Port)
