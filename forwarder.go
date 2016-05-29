@@ -57,7 +57,7 @@ func (f *Forwarder) Start() {
 				}
 				defer resp.Body.Close()
 
-				if resp.StatusCode != http.StatusAccepted {
+				if resp.StatusCode != http.StatusAccepted && resp.StatusCode != http.StatusCreated {
 					body, _ := ioutil.ReadAll(resp.Body)
 					log.Printf("ERROR: Received unexpected status: %s\n", resp.Status)
 					log.Printf(" > Headers: %+v\n", resp.Header)
