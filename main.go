@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"net/http"
+	//"net/http"
 	"os"
 	"os/signal"
-	"strings"
+	//"strings"
 	"syscall"
 
 	"github.com/jessevdk/go-flags"
@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	version = "0.0.1"
+	version = "0.0.2"
 )
 
 type Options struct {
